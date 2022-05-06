@@ -23,13 +23,13 @@ def apply_deals(item_counts: Dict[str: int]) -> int:
     """ Mutates the dictionary to apply the deals, and returns the discount
     obtained from the removed items"""
 
-    discount = 0
+    def get_new_amount_and_discount(num_required, discount_price, num):
+        return num % num_required, (num // num_required) * discount_price
 
-    new_a = item_counts['A'] // 3
-    a_discount = item_counts['A'] * 130
+    item_counts['A'], a_discount = get_new_amount_and_discount(3, 130, item_counts['A'])
+    item_counts['B'], b_discount = get_new_amount_and_discount(2, 45, item_counts['B'])
 
-
-    return discount
+    return a_discount + b_discount
 
 
 def calculate_sum(item_counts: Dict[str: int]) -> int:
@@ -52,10 +52,3 @@ def checkout_impl(letters):
     deal_total = apply_deals(shopping_list_count)
     remaining_total = calculate_sum(shopping_list_count)
     return deal_total + remaining_total
-
-
-
-
-
-
-
