@@ -50,3 +50,12 @@ def test_freebie():
 def test_eeb():
     assert checkout_impl("EEB") == 80
 
+
+def test_eeeebb():
+    assert checkout_impl("EEEEBB") == 160
+
+
+def test_bebeee():
+    assert checkout_impl("BEBEEE") == 160
+
+
