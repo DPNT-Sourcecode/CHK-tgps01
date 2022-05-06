@@ -9,6 +9,6 @@ def test_multiple():
     assert checkout_impl("ABCA") == (50 + 30 + 20 + 50)
 
 
-
 def test_a_combo():
     assert checkout_impl("AAA") == 130
+
