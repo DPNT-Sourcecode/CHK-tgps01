@@ -21,10 +21,12 @@ def load_prices() -> Dict[str, int]:
         lines = fp.readlines()
 
     prices = {}
+    deal_lines = []
     for line in lines:
         line = line[1:].split("|")
-        item, price = [s.strip() for s in [line[0], line[1]]]
+        item, price, deal_line = [s.strip() for s in line[0:3]]
         prices[item] = int(price)
+        deal_lines.append(deal_line)
     return prices
 
 
@@ -75,3 +77,4 @@ def checkout_impl(letters):
     deal_total = apply_deals(shopping_list_count)
     remaining_total = calculate_sum(prices, shopping_list_count)
     return deal_total + remaining_total
+
