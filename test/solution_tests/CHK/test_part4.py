@@ -1,7 +1,7 @@
 import pytest
 
 from solutions.CHK.checkout_solution import checkout_impl
-from solutions.CHK.pricelist import parse_multibuy
+from solutions.CHK import pricelist
 
 
 class TestFreebies:
@@ -15,4 +15,15 @@ class TestFreebies:
 
     def test_ee(self):
         assert checkout_impl("EE") == 80
+
+
+def test_multibuy():
+    deal = "3A for 130"
+    assert pricelist.is_multibuy(deal)
+
+    result = pricelist.parse_multibuy(deal)
+    assert result.item == "A"
+    assert result.n_required == 3
+    assert result.cost == 130
+
 

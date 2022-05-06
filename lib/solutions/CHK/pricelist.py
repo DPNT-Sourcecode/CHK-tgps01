@@ -24,6 +24,10 @@ class PriceList:
         self.multibuys = multibuys
 
 
+def is_multibuy(deal: str) -> bool:
+    return "for" in deal
+
+
 def parse_multibuy(deal: str) -> Multibuy:
     item_and_count, price = [s.strip() for s in deal.split("for")]
     item = item_and_count[0]
@@ -64,5 +68,6 @@ def load_prices() -> PriceList:
                 pass
 
     return prices
+
 
 
