@@ -57,5 +57,3 @@ def test_eeeebb():
 
 def test_bebeee():
     assert checkout_impl("BEBEEE") == 160
-
-

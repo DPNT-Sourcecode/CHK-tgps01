@@ -80,7 +80,3 @@ def load_prices() -> PriceList:
                 freebies.append(parse_freebie(deal))
 
     return PriceList(prices, freebies, multibuys)
-
-
-
-
