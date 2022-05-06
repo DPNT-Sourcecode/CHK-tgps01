@@ -1,6 +1,7 @@
 import pytest
 
 from solutions.CHK.checkout_solution import checkout_impl
+from solutions.CHK.pricelist import parse_multibuy
 
 
 class TestFreebies:
@@ -14,3 +15,4 @@ class TestFreebies:
 
     def test_ee(self):
         assert checkout_impl("EE") == 80
+

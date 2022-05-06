@@ -11,7 +11,8 @@ class Freebie:
 
 
 class Multibuy:
-    def __init__(self, n_required, cost):
+    def __init__(self, item, n_required, cost):
+        self.item = item
         self.n_required = n_required
         self.cost = cost
 
@@ -28,12 +29,15 @@ def parse_multibuy(deal: str) -> Multibuy:
     item = item_and_count[0]
     count = int(item_and_count[1])
     price = int(price)
-
-    pass
+    return Multibuy(item, count, price)
 
 
 def parse_freebie(deal: str) -> Freebie:
-    pass
+    item_and_count, freebie = [s.strip() for s in deal.split("get one")]
+    item = item_and_count[0]
+    count = int(item_and_count[1])
+    freebie = freebie[0]
+    return Freebie(count, item, freebie)
 
 
 def load_prices() -> PriceList:
@@ -60,4 +64,5 @@ def load_prices() -> PriceList:
                 pass
 
     return prices
+
 
