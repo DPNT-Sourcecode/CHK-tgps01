@@ -28,11 +28,12 @@ def apply_deals(pricelist: PriceList, item_counts: Dict[str, int]) -> int:
         item_counts[multibuy.item] %= multibuy.n_required
         return discount
 
-    for freebie in pricelist.freebies:
+    for fb in pricelist.freebies:
+        it
         apply_freebie(freebie)
 
-    for multibuy in pricelist.multibuys:
-        total_discount += apply_multibuy(multibuy)
+    for mb in pricelist.multibuys:
+        total_discount += apply_multibuy(mb)
 
     return total_discount
 
@@ -59,4 +60,5 @@ def checkout_impl(letters):
     deal_total = apply_deals(price_list, shopping_list_count)
     remaining_total = calculate_sum(price_list.prices, shopping_list_count)
     return deal_total + remaining_total
+
 
