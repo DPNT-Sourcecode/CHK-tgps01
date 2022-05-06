@@ -1,3 +1,8 @@
+import os
+
+from typing import Dict, List
+
+
 class Freebie:
     def __init__(self, n_required, item, free_item):
         self.n_required = n_required
@@ -19,6 +24,11 @@ class PriceList:
 
 
 def parse_multibuy(deal: str) -> Multibuy:
+    item_and_count, price = [s.strip() for s in deal.split("for")]
+    item = item_and_count[0]
+    count = int(item_and_count[1])
+    price = int(price)
+
     pass
 
 
@@ -26,7 +36,7 @@ def parse_freebie(deal: str) -> Freebie:
     pass
 
 
-def load_prices() -> PriceList
+def load_prices() -> PriceList:
     HERE = os.path.abspath(os.path.dirname(__file__))
     fpath = os.path.join(HERE, "pricelist.txt")
 
@@ -46,6 +56,8 @@ def load_prices() -> PriceList
 
     for deal_line in deal_lines:
         for deal in deal_line.split(','):
-            if ""
+            if "":
+                pass
 
     return prices
+

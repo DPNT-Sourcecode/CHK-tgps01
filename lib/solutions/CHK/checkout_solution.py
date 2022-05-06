@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-import os
+from .pricelist import load_prices
 
 
 # noinspection PyUnusedLocal
@@ -60,6 +60,7 @@ def checkout_impl(letters):
     deal_total = apply_deals(shopping_list_count)
     remaining_total = calculate_sum(prices, shopping_list_count)
     return deal_total + remaining_total
+
 
 
 
