@@ -27,3 +27,14 @@ def test_multibuy():
     assert result.cost == 130
 
 
+def test_freebie():
+    deal = "2E get one B free"
+    assert not pricelist.is_multibuy(deal)
+
+    result = pricelist.parse_freebie(deal)
+    assert result.item == "E"
+    assert result.n_required == 2
+    assert result.free_item == "B"
+
+
+

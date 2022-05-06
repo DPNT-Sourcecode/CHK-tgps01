@@ -30,16 +30,16 @@ def is_multibuy(deal: str) -> bool:
 
 def parse_multibuy(deal: str) -> Multibuy:
     item_and_count, price = [s.strip() for s in deal.split("for")]
-    item = item_and_count[0]
-    count = int(item_and_count[1])
+    item = item_and_count[1]
+    count = int(item_and_count[0])
     price = int(price)
     return Multibuy(item, count, price)
 
 
 def parse_freebie(deal: str) -> Freebie:
     item_and_count, freebie = [s.strip() for s in deal.split("get one")]
-    item = item_and_count[0]
-    count = int(item_and_count[1])
+    item = item_and_count[1]
+    count = int(item_and_count[0])
     freebie = freebie[0]
     return Freebie(count, item, freebie)
 
@@ -63,11 +63,12 @@ def load_prices() -> PriceList:
     freebies = []
 
     for deal_line in deal_lines:
-        for deal in deal_line.split(','):
+        for deal in deal_line.split(',')[::-1]:
             if "":
                 pass
 
     return prices
+
 
 
 
