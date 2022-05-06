@@ -36,22 +36,24 @@ def apply_deals(item_counts: Dict[str, int]) -> int:
     item_counts["B"] -= item_counts["E"] // 2
     item_counts["B"] = max(0, item_counts["B"])
 
-    discount = 0
+    total_discount = 0
+
     def apply_multibuy(item, num_required, discount_price):
-        discount = (item_counts[item] // num_required) * dis
+        discount = (item_counts[item] // num_required) * discount_price
         item_counts[item] %= num_required
         return discount
 
-    def get_new_amount_and_discount(num_required, discount_price, num):
-        return num % num_required, (num // num_required) * discount_price
+    def apply_freebie(item, num_required, free_item):
+        item_counts[free_item] -= item_counts[item] // num_required
+        item_counts[free_item] = max(0, item_counts[free_item])
 
-    item_counts["A"], five_a_discount = get_new_amount_and_discount(5, 200, item_counts["A"])
-    item_counts["A"], three_a_discount = get_new_amount_and_discount(3, 130, item_counts["A"])
-    item_counts["B"], b_discount = get_new_amount_and_discount(2, 45, item_counts["B"])
+    total_discount += apply_multibuy("A", 5, 200)
+    total_discount += apply_multibuy("A", 3, 130)
+    total_discount += apply_multibuy("B", 2, 45)
 
     item_counts["F"] -= item_counts["F"] // 3
 
-    return five_a_discount + three_a_discount + b_discount
+    return total_discount
 
 
 def calculate_sum(prices: Dict[str, int], item_counts: Dict[str, int]) -> int:
@@ -77,6 +79,7 @@ def checkout_impl(letters):
     deal_total = apply_deals(shopping_list_count)
     remaining_total = calculate_sum(prices, shopping_list_count)
     return deal_total + remaining_total
+
 
 
 
