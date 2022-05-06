@@ -1,5 +1,7 @@
 from typing import Dict
 
+import os
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -12,7 +14,10 @@ def checkout(skus):
 
 
 def load_prices() -> Dict[str, int]:
-    with open("pricelist.txt") as fp:
+    HERE = os.path.abspath(os.path.dirname(__file__))
+    fpath = os.path.join(HERE, "pricelist.txt")
+
+    with open(fpath) as fp:
         lines = fp.readlines()
 
     prices = {}
@@ -46,8 +51,9 @@ def apply_deals(item_counts: Dict[str, int]) -> int:
 def calculate_sum(prices: Dict[str, int], item_counts: Dict[str, int]) -> int:
     """ Calculate the sum of the items in the list """
     total = 0
+    prices = load_prices()
     for letter, count in item_counts.items():
-        total += PRICES[letter] * count
+        total += prices[letter] * count
 
     return total
 
@@ -55,14 +61,17 @@ def calculate_sum(prices: Dict[str, int], item_counts: Dict[str, int]) -> int:
 def checkout_impl(letters):
     """Implementation of the function which raises exceptions instead of returning -1"""
 
-    shopping_list_count = {key: 0 for key in PRICES}
+    prices = load_prices()
+
+    shopping_list_count = {key: 0 for key in prices}
 
     for letter in letters:
         shopping_list_count[letter] += 1
 
     deal_total = apply_deals(shopping_list_count)
-    remaining_total = calculate_sum(shopping_list_count)
+    remaining_total = calculate_sum(prices, shopping_list_count)
     return deal_total + remaining_total
+
 
 
 
