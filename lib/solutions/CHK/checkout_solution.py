@@ -6,7 +6,8 @@ from typing import Dict
 def checkout(skus):
     try:
         return checkout_impl(skus)
-    except Exception:
+    except KeyError:
+        # Currently I can only predict keyerrors, and that's better than a broad Except
         return -1
 
 
@@ -23,8 +24,12 @@ def apply_deals(item_counts: Dict[str: int]) -> int:
     obtained from the removed items"""
 
     discount = 0
-    for key, val in item_counts.items():
-        pass
+
+    new_a = item_counts['A'] // 3
+    a_discount = item_counts['A'] * 130
+
+
+    return discount
 
 
 def calculate_sum(item_counts: Dict[str: int]) -> int:
@@ -44,9 +49,11 @@ def checkout_impl(letters):
     for letter in letters:
         shopping_list_count[letter] += 1
 
-    discount = apply_deals(shopping_list_count)
+    deal_total = apply_deals(shopping_list_count)
+    remaining_total = calculate_sum(shopping_list_count)
+    return deal_total + remaining_total
 
-    total = calculate_sum(shopping_list_count)
+
 
 
 
