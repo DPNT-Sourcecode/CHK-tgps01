@@ -1,3 +1,5 @@
+from typing import Dict
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -16,6 +18,24 @@ PRICES = {
 }
 
 
+def apply_deals(item_counts: Dict[str: int]) -> int:
+    """ Mutates the dictionary to apply the deals, and returns the discount
+    obtained from the removed items"""
+
+    discount = 0
+    for key, val in item_counts.items():
+        pass
+
+
+def calculate_sum(item_counts: Dict[str: int]) -> int:
+    """ Calculate the sum of the items in the list """
+    total = 0
+    for letter, count in shopping_list_count.items():
+        total += PRICES[letter] * count
+
+    return total
+
+
 def checkout_impl(letters):
     """Implementation of the function which raises exceptions instead of returning -1"""
 
@@ -24,11 +44,10 @@ def checkout_impl(letters):
     for letter in letters:
         shopping_list_count[letter] += 1
 
-    total = 0
-    for letter, count in shopping_list_count.items():
-        total += PRICES[letter] * count
+    discount = apply_deals(shopping_list_count)
 
-    return total
+    total = calculate_sum(shopping_list_count)
+
 
 
 
