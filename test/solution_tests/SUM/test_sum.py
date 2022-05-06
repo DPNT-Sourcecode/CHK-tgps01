@@ -9,4 +9,3 @@ class TestSum():
 def test_sum():
     assert 41 + 8 == 49
 
-
