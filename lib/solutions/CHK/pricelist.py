@@ -46,7 +46,6 @@ def parse_freebie(deal: str) -> Freebie:
     item_and_count, freebie = [s.strip() for s in deal.split("get one")]
     item, count = parse_item_and_count(item_and_count)
     freebie = freebie[0]
-    print(count, item, freebie)
     return Freebie(count, item, freebie)
 
 

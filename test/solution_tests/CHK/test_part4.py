@@ -46,3 +46,7 @@ def test_freebie():
     assert result.n_required == 2
     assert result.free_item == "B"
 
+
+def test_eeb():
+    assert checkout_impl("EEB") == 80
+
