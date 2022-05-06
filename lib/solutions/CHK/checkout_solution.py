@@ -16,8 +16,12 @@ PRICES = {
 }
 
 
-def checkout_impl(input):
+def checkout_impl(letters):
     """Implementation of the function which raises exceptions instead of returning -1"""
-    pass
+    total = 0
+    for letter in letters:
+        total += PRICES[letter]
+    return total
+
 
 
