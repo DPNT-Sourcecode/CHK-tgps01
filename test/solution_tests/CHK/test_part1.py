@@ -12,3 +12,8 @@ def test_multiple():
 def test_a_combo():
     assert checkout_impl("AAA") == 130
 
+
+def test_a_combo_with_leftovers():
+    assert checkout_impl("AAAAA") == 130 + 100
+
+
