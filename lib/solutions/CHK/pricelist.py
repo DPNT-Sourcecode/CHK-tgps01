@@ -28,7 +28,7 @@ class PriceList:
 
 
 def is_multibuy(deal: str) -> bool:
-    return "for" in deal
+    return "for" in deal and "any" not in deal
 
 
 def is_freebie(deal: str) -> bool:
@@ -72,7 +72,13 @@ def load_prices() -> PriceList:
     freebies = []
 
     for deal_line in deal_lines:
-        for deal in reversed(deal_line.split(',')):
+        deals = []
+        if '(' in deal_line:
+            deals.append(deal_line)
+        else:
+            deals.extend(reversed(deal_line.split(',')))
+
+        for deal in deals:
             # Iterate over backwards. This is because we note that we must apply larger bunches first
             # (eg buy 5 discount over buy 3 discount), and we assume that these are guaranteed to be
             # presented in this order.
@@ -84,4 +90,5 @@ def load_prices() -> PriceList:
                 freebies.append(parse_freebie(deal))
 
     return PriceList(prices, freebies, multibuys)
+
 
