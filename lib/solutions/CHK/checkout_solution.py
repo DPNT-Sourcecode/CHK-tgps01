@@ -13,46 +13,6 @@ def checkout(skus):
         return -1
 
 
-class Freebie:
-    def __init__(self, n_required, item, free_item):
-        self.n_required = n_required
-        self.item = item
-        self.free_item = free_item
-
-
-class Multibuy:
-    def __init__(self, n_required, cost):
-        self.n_required = n_required
-        self.cost = cost
-
-
-class PriceList:
-    def __init__(self, prices: Dict[str, int], freebies: List[Freebie], multibuys: List[Multibuy]):
-        self.prices = prices
-        self.freebies = freebies
-        self.multibuys = multibuys
-
-
-def load_prices() -> PriceList
-    HERE = os.path.abspath(os.path.dirname(__file__))
-    fpath = os.path.join(HERE, "pricelist.txt")
-
-    with open(fpath) as fp:
-        lines = fp.readlines()
-
-    prices = {}
-    deal_lines = []
-    for line in lines:
-        line = line[1:].split("|")
-        item, price, deal_line = [s.strip() for s in line[0:3]]
-        prices[item] = int(price)
-        deal_lines.append(deal_line)
-
-
-
-    return prices
-
-
 def apply_deals(item_counts: Dict[str, int]) -> int:
     """ Mutates the dictionary to apply the deals, and returns the discount
     obtained from the removed items"""
@@ -100,5 +60,6 @@ def checkout_impl(letters):
     deal_total = apply_deals(shopping_list_count)
     remaining_total = calculate_sum(prices, shopping_list_count)
     return deal_total + remaining_total
+
 
 
