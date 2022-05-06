@@ -35,6 +35,3 @@ def test_freebie():
     assert result.item == "E"
     assert result.n_required == 2
     assert result.free_item == "B"
-
-
-

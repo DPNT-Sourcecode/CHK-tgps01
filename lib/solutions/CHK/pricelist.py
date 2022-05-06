@@ -23,6 +23,9 @@ class PriceList:
         self.freebies = freebies
         self.multibuys = multibuys
 
+    def __iter__(self):
+        return iter(self.prices)
+
 
 def is_multibuy(deal: str) -> bool:
     return "for" in deal
@@ -75,8 +78,3 @@ def load_prices() -> PriceList:
                 freebies.append(parse_freebie(deal))
 
     return PriceList(prices, freebies, multibuys)
-
-
-
-
-

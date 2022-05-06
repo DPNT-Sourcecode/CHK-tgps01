@@ -19,21 +19,20 @@ def apply_deals(pricelist: PriceList, item_counts: Dict[str, int]) -> int:
 
     total_discount = 0
 
-    def apply_multibuy(item, num_required, discount_price):
-        discount = (item_counts[item] // num_required) * discount_price
-        item_counts[item] %= num_required
+    def apply_freebie(freebie):
+        item_counts[freebie.free_item] -= item_counts[freebie.item] // freebie.n_required
+        item_counts[freebie.free_item] = max(0, item_counts[freebie.free_item])
+
+    def apply_multibuy(multibuy):
+        discount = (item_counts[multibuy.item] // multibuy.n_required) * multibuy.cost
+        item_counts[multibuy.item] %= multibuy.n_required
         return discount
 
-    def apply_freebie(num_required, item, free_item):
-        item_counts[free_item] -= item_counts[item] // num_required
-        item_counts[free_item] = max(0, item_counts[free_item])
+    for freebie in pricelist.freebies:
+        apply_freebie(freebie)
 
-    apply_freebie(2, "E", "B")
-    apply_freebie(3, "F", "F")
-
-    total_discount += apply_multibuy("A", 5, 200)
-    total_discount += apply_multibuy("A", 3, 130)
-    total_discount += apply_multibuy("B", 2, 45)
+    for multibuy in pricelist.multibuys:
+        apply_multibuy(multibuy)
 
     return total_discount
 
@@ -52,7 +51,7 @@ def checkout_impl(letters):
 
     price_list = load_prices()
 
-    shopping_list_count = {key: 0 for key in price_list}
+    shopping_list_count = {key: 0 for key in price_list.prices}
 
     for letter in letters:
         shopping_list_count[letter] += 1
@@ -60,8 +59,3 @@ def checkout_impl(letters):
     deal_total = apply_deals(price_list, shopping_list_count)
     remaining_total = calculate_sum(price_list.prices, shopping_list_count)
     return deal_total + remaining_total
-
-
-
-
-
