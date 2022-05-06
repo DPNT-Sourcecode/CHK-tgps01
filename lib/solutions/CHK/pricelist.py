@@ -63,11 +63,19 @@ def load_prices() -> PriceList:
     freebies = []
 
     for deal_line in deal_lines:
-        for deal in deal_line.split(',')[::-1]:
-            if "":
-                pass
+        for deal in reversed(deal_line.split(',')):
+            # Iterate over backwards. This is because we note that we must apply larger bunches first
+            # (eg buy 5 discount over buy 3 discount), and we assume that these are guaranteed to be
+            # presented in this order.
+            if len(deal) == 0:
+                continue
+            if is_multibuy(deal):
+                multibuys.append(parse_multibuy(deal))
+            else:
+                freebies.append(parse_freebie(deal))
 
-    return prices
+    return PriceList(prices, freebies, multibuys)
+
 
 
 
