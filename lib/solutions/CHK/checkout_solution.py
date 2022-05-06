@@ -11,18 +11,16 @@ def checkout(skus):
         return -1
 
 
-PRICES = {
-    "A": 50,
-    "B": 30,
-    "C": 20,
-    "D": 15,
-    "E": 40,
-    "F": 10
-}
-
-
 def load_prices() -> Dict[str, int]:
-    pass
+    with open("pricelist.txt") as fp:
+        lines = fp.readlines()
+
+    prices = {}
+    for line in lines:
+        line = line[1:].split("|")
+        item, price = [s.strip() for s in [line[0], line[1]]]
+        prices[item] = int(price)
+    return prices
 
 
 def apply_deals(item_counts: Dict[str, int]) -> int:
@@ -45,7 +43,7 @@ def apply_deals(item_counts: Dict[str, int]) -> int:
     return five_a_discount + three_a_discount + b_discount
 
 
-def calculate_sum(item_counts: Dict[str, int]) -> int:
+def calculate_sum(prices: Dict[str, int], item_counts: Dict[str, int]) -> int:
     """ Calculate the sum of the items in the list """
     total = 0
     for letter, count in item_counts.items():
@@ -65,5 +63,6 @@ def checkout_impl(letters):
     deal_total = apply_deals(shopping_list_count)
     remaining_total = calculate_sum(shopping_list_count)
     return deal_total + remaining_total
+
 
 
