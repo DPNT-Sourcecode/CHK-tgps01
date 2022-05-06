@@ -21,6 +21,10 @@ PRICES = {
 }
 
 
+def load_prices() -> Dict[str, int]:
+    pass
+
+
 def apply_deals(item_counts: Dict[str, int]) -> int:
     """ Mutates the dictionary to apply the deals, and returns the discount
     obtained from the removed items"""
@@ -61,4 +65,5 @@ def checkout_impl(letters):
     deal_total = apply_deals(shopping_list_count)
     remaining_total = calculate_sum(shopping_list_count)
     return deal_total + remaining_total
+
 
