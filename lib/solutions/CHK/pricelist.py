@@ -31,6 +31,10 @@ def is_multibuy(deal: str) -> bool:
     return "for" in deal
 
 
+def is_freebie(deal: str) -> bool:
+    return "get one" in deal
+
+
 def parse_item_and_count(text: str) -> (str, int):
     return text[-1], int(text[:-1])
 
@@ -51,7 +55,7 @@ def parse_freebie(deal: str) -> Freebie:
 
 def load_prices() -> PriceList:
     HERE = os.path.abspath(os.path.dirname(__file__))
-    fpath = os.path.join(HERE, "pricelist.txt")
+    fpath = os.path.join(HERE, "updated_pricelist.txt")
 
     with open(fpath) as fp:
         lines = fp.readlines()
@@ -76,7 +80,8 @@ def load_prices() -> PriceList:
                 continue
             if is_multibuy(deal):
                 multibuys.append(parse_multibuy(deal))
-            else:
+            elif is_freebie(deal):
                 freebies.append(parse_freebie(deal))
 
     return PriceList(prices, freebies, multibuys)
+
