@@ -1,5 +1,7 @@
 from typing import Dict
 
+from itertools import accumulate
+
 from .pricelist import load_prices, PriceList
 
 
@@ -13,12 +15,17 @@ def checkout(skus):
         return -1
 
 
-def apply_combibuy(pricelist: PriceList, item_counts: Dict[str, int]) -> int:
+def apply_combibuy(item_counts: Dict[str, int]) -> int:
     n_required = 3
     cost = 45
 
-    keys = ("S", "T", "X", "Y", "Z")
-    pass
+    # Assume that we're being nice to the customer and that we, by default, include
+    # the most costly items in the customer's discount. If not, I certainly wouldn't shop there.
+
+    keys_in_cost_order = ("Z", "Y", "S", "T", "X")
+    n_present = accumulate([item_counts[k] for k in keys_in_cost_order])
+
+    n_combos = n_present // n_required
 
 
 def apply_deals(pricelist: PriceList, item_counts: Dict[str, int]) -> int:
@@ -36,7 +43,7 @@ def apply_deals(pricelist: PriceList, item_counts: Dict[str, int]) -> int:
         total_discount += (item_counts[mb.item] // mb.n_required) * mb.cost
         item_counts[mb.item] %= mb.n_required
 
-    total_discount += apply_combibuy(pricelist, item_counts)
+    total_discount += apply_combibuy(item_counts)
 
     return total_discount
 
@@ -63,5 +70,6 @@ def checkout_impl(letters):
     deal_total = apply_deals(price_list, shopping_list_count)
     remaining_total = calculate_sum(price_list.prices, shopping_list_count)
     return deal_total + remaining_total
+
 
 
