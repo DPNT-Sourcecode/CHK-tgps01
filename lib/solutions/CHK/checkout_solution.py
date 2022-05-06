@@ -32,10 +32,6 @@ def apply_deals(item_counts: Dict[str, int]) -> int:
     """ Mutates the dictionary to apply the deals, and returns the discount
     obtained from the removed items"""
 
-    # buy two E get one B free
-    item_counts["B"] -= item_counts["E"] // 2
-    item_counts["B"] = max(0, item_counts["B"])
-
     total_discount = 0
 
     def apply_multibuy(item, num_required, discount_price):
@@ -43,7 +39,7 @@ def apply_deals(item_counts: Dict[str, int]) -> int:
         item_counts[item] %= num_required
         return discount
 
-    def apply_freebie(item, num_required, free_item):
+    def apply_freebie(num_required, item, free_item):
         item_counts[free_item] -= item_counts[item] // num_required
         item_counts[free_item] = max(0, item_counts[free_item])
 
@@ -51,7 +47,8 @@ def apply_deals(item_counts: Dict[str, int]) -> int:
     total_discount += apply_multibuy("A", 3, 130)
     total_discount += apply_multibuy("B", 2, 45)
 
-    item_counts["F"] -= item_counts["F"] // 3
+    apply_freebie(2, "E", "B")
+    apply_freebie(3, "F", "F")
 
     return total_discount
 
@@ -59,7 +56,6 @@ def apply_deals(item_counts: Dict[str, int]) -> int:
 def calculate_sum(prices: Dict[str, int], item_counts: Dict[str, int]) -> int:
     """ Calculate the sum of the items in the list """
     total = 0
-    prices = load_prices()
     for letter, count in item_counts.items():
         total += prices[letter] * count
 
@@ -79,6 +75,7 @@ def checkout_impl(letters):
     deal_total = apply_deals(shopping_list_count)
     remaining_total = calculate_sum(prices, shopping_list_count)
     return deal_total + remaining_total
+
 
 
 
