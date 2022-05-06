@@ -18,10 +18,18 @@ PRICES = {
 
 def checkout_impl(letters):
     """Implementation of the function which raises exceptions instead of returning -1"""
-    total = 0
+
+    shopping_list_count = {key: 0 for key in PRICES}
+
     for letter in letters:
-        total += PRICES[letter]
+        shopping_list_count[letter] += 1
+
+    total = 0
+    for letter, count in shopping_list_count.items():
+        total += PRICES[letter] * count
+
     return total
+
 
 
 
