@@ -36,6 +36,7 @@ def parse_multibuy(deal: str) -> Multibuy:
     item = item_and_count[1]
     count = int(item_and_count[0])
     price = int(price)
+    print(item, count, price)
     return Multibuy(item, count, price)
 
 
@@ -78,3 +79,4 @@ def load_prices() -> PriceList:
                 freebies.append(parse_freebie(deal))
 
     return PriceList(prices, freebies, multibuys)
+
