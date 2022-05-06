@@ -12,3 +12,8 @@ def test_five_a():
 def test_five_a_and_three_a():
     assert checkout_impl("A" * 9) == 200 + 130 + 50
 
+
+def test_two_e_no_b():
+    assert checkout_impl("EE") == 80
+
+
