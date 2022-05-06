@@ -28,6 +28,8 @@ def apply_deals(pricelist: PriceList, item_counts: Dict[str, int]) -> int:
         total_discount += (item_counts[mb.item] // mb.n_required) * mb.cost
         item_counts[mb.item] %= mb.n_required
 
+    total_discount += apply_combibuy(item_counts)
+
     return total_discount
 
 
@@ -53,3 +55,4 @@ def checkout_impl(letters):
     deal_total = apply_deals(price_list, shopping_list_count)
     remaining_total = calculate_sum(price_list.prices, shopping_list_count)
     return deal_total + remaining_total
+

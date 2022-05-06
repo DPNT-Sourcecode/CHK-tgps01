@@ -88,7 +88,9 @@ def load_prices() -> PriceList:
                 multibuys.append(parse_multibuy(deal))
             elif is_freebie(deal):
                 freebies.append(parse_freebie(deal))
+            # Don't parse the "combibuy". I hardcoded it.
 
     return PriceList(prices, freebies, multibuys)
+
 
 
