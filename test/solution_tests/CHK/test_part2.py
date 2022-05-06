@@ -15,5 +15,3 @@ def test_five_a_and_three_a():
 
 def test_two_e_no_b():
     assert checkout_impl("EE") == 80
-
-

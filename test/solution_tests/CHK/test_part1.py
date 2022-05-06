@@ -19,8 +19,3 @@ def test_a_combo_with_leftovers():
 
 def test_a_and_b_combo_with_leftovers():
     assert checkout_impl("AAAABBB") == 130 + 50 + 45 + 30
-
-
-
-
-

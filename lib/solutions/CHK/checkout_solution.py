@@ -58,9 +58,3 @@ def checkout_impl(letters):
     deal_total = apply_deals(shopping_list_count)
     remaining_total = calculate_sum(shopping_list_count)
     return deal_total + remaining_total
-
-
-
-
-
-
