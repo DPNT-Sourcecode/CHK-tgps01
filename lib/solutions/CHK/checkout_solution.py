@@ -13,6 +13,14 @@ def checkout(skus):
         return -1
 
 
+def apply_combibuy(pricelist: PriceList, item_counts: Dict[str, int]) -> int:
+    n_required = 3
+    cost = 45
+
+    keys = ("S", "T", "X", "Y", "Z")
+    pass
+
+
 def apply_deals(pricelist: PriceList, item_counts: Dict[str, int]) -> int:
     """ Mutates the dictionary to apply the deals, and returns the discount
     obtained from the removed items"""
@@ -28,7 +36,7 @@ def apply_deals(pricelist: PriceList, item_counts: Dict[str, int]) -> int:
         total_discount += (item_counts[mb.item] // mb.n_required) * mb.cost
         item_counts[mb.item] %= mb.n_required
 
-    total_discount += apply_combibuy(item_counts)
+    total_discount += apply_combibuy(pricelist, item_counts)
 
     return total_discount
 
@@ -55,4 +63,5 @@ def checkout_impl(letters):
     deal_total = apply_deals(price_list, shopping_list_count)
     remaining_total = calculate_sum(price_list.prices, shopping_list_count)
     return deal_total + remaining_total
+
 
