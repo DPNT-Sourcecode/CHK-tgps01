@@ -16,4 +16,3 @@ from solutions.CHK.checkout_solution import checkout_impl
 )
 def test_two_f(n, cost):
     assert checkout_impl("F" * n) == cost
-
