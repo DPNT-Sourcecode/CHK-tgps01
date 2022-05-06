@@ -24,3 +24,14 @@ def test_one(item_counts):
     assert item_counts["Y"] == 1
 
 
+def test_two(item_counts):
+    item_counts["S"] = 1
+    item_counts["T"] = 1
+    item_counts["X"] = 1
+
+    discount = apply_combibuy(item_counts)
+    assert discount == 45
+
+    assert item_counts["S"] == 0
+    assert item_counts["T"] == 0
+    assert item_counts["X"] == 0
